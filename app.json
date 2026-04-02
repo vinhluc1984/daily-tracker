@@ -1,0 +1,36 @@
+{
+  "expo": {
+    "name": "daily-tracker",
+    "slug": "daily-tracker",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/images/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/android-icon-foreground.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "bundler": "metro",
+      "favicon": "./assets/images/favicon.png",
+      "description": "A daily task tracker built with Expo and React Native.",
+      "themeColor": "#000000",
+      "backgroundColor": "#ffffff",
+      "display": "standalone",
+      "orientation": "portrait"
+    }
+  }
+}
