@@ -31,6 +31,10 @@
       "backgroundColor": "#ffffff",
       "display": "standalone",
       "orientation": "portrait"
+    },
+    "experiments": {
+      "baseUrl": "/daily-tracker"
     }
+
   }
 }
