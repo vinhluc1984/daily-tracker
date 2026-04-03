@@ -24,13 +24,14 @@
                                                   }
                              },
                  "web":  {
-                             "bundler":  "metro",
                              "favicon":  "./assets/images/favicon.png",
                              "description":  "A daily task tracker built with Expo and React Native.",
                              "themeColor":  "#000000",
                              "backgroundColor":  "#ffffff",
                              "display":  "standalone",
-                             "orientation":  "portrait"
+                             "orientation":  "portrait",
+                             "output":  "static",
+                             "bundler":  "metro"
                          },
                  "experiments":  {
                                      "baseUrl":  "/daily-tracker"
