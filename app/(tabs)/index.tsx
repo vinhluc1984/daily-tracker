@@ -513,7 +513,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     gap: 10,
   },
-  linkInputRow: {
+  linkInputRow: {`n    flexWrap: 'wrap',
     flexDirection: 'row',
     gap: 10,
   },
@@ -665,7 +665,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
-    minWidth: 100,
+    minWidth: 80,
   },
   dropdownButtonText: {
     fontSize: 14,
