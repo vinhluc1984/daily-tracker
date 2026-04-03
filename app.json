@@ -33,7 +33,7 @@
                              "orientation":  "portrait"
                          },
                  "experiments":  {
-
+                                     "baseUrl":  "/daily-tracker"
                                  }
              }
 }

@@ -25,7 +25,7 @@ jobs:
         run: npm ci
 
       - name: Build web
-        run: npx expo export --platform web
+        run: npx expo export --platform web --output-dir dist
         env:
           CI: 1
 
@@ -36,3 +36,4 @@ jobs:
           branch: gh-pages
           clean: true
           token: ${{ secrets.GITHUB_TOKEN }}
+
