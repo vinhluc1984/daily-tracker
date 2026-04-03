@@ -433,7 +433,7 @@ export default function HomeScreen() {
         />
       }>
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Daily Tracker</ThemedText>
+        <ThemedText type="title">Daily Tracker ?</ThemedText>
       </ThemedView>
 
       <ThemedView style={styles.inputSection}>
@@ -718,3 +718,4 @@ const styles = StyleSheet.create({
     paddingLeft: 4,
   },
 });
+
