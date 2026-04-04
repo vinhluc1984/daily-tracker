@@ -33,7 +33,7 @@ interface Task {
   timeOfDay: TimeOfDay;
 }
 
-type ListItem = 
+type ListItem =
   | (Task & { type: 'task' })
   | { id: string; type: 'header'; title: TimeOfDay };
 
@@ -97,7 +97,7 @@ export default function HomeScreen() {
     const loadData = async () => {
       try {
         let storedTasks = await AsyncStorage.getItem(STORAGE_KEY);
-        
+
         // Migration logic: recover tasks from v4 if v5 is empty
         if (storedTasks === null) {
           const v4Tasks = await AsyncStorage.getItem('@daily_tracker_tasks_v4');
@@ -108,7 +108,7 @@ export default function HomeScreen() {
 
         const lastOpened = await AsyncStorage.getItem(LAST_OPENED_KEY);
         const storedWeekStart = await AsyncStorage.getItem(WEEK_START_KEY);
-        
+
         const today = new Date().toDateString();
         const currentWeekStart = getStartOfWeek();
 
@@ -116,14 +116,14 @@ export default function HomeScreen() {
 
         if (storedTasks !== null) {
           tasksToSet = JSON.parse(storedTasks);
-          
+
           // Ensure weeklyCompletedCount and timeOfDay exist for migrated tasks
           tasksToSet = tasksToSet.map(t => ({
             ...t,
             weeklyCompletedCount: t.weeklyCompletedCount || 0,
             timeOfDay: t.timeOfDay || 'Morning'
           }));
-          
+
           // Weekly Reset Logic
           if (storedWeekStart !== currentWeekStart) {
             tasksToSet = tasksToSet.map(task => ({
@@ -133,7 +133,7 @@ export default function HomeScreen() {
             }));
             await AsyncStorage.setItem(WEEK_START_KEY, currentWeekStart);
             await AsyncStorage.setItem(LAST_OPENED_KEY, today);
-          } 
+          }
           // Daily Reset Logic
           else if (lastOpened !== today) {
             tasksToSet = tasksToSet.map(task => ({ ...task, completed: false }));
@@ -169,7 +169,7 @@ export default function HomeScreen() {
       try {
         const jsonValue = JSON.stringify(tasks);
         await AsyncStorage.setItem(STORAGE_KEY, jsonValue);
-        
+
         const incompleteTasks = tasks.filter(t => !t.completed);
         if (incompleteTasks.length > 0) {
           await scheduleDailyReminder(incompleteTasks.length);
@@ -194,8 +194,8 @@ export default function HomeScreen() {
     };
     const identifier = await Notifications.scheduleNotificationAsync({
       content: {
-        title: "Daily Task Reminder 📝",
-        body: `You still have ${count} uncompleted ${count === 1 ? 'task' : 'tasks'} for today.`,
+        title: "Daily Task Reminder ??",
+        body: You still have  uncompleted  for today.,
         sound: 'default',
       },
       trigger,
@@ -231,7 +231,7 @@ export default function HomeScreen() {
 
     let formattedLink = taskLink.trim();
     if (formattedLink && !formattedLink.startsWith('http')) {
-      formattedLink = `https://${formattedLink}`;
+      formattedLink = https://;
     }
 
     const newTask: Task = {
@@ -260,8 +260,8 @@ export default function HomeScreen() {
           return {
             ...t,
             completed: isNowCompleted,
-            weeklyCompletedCount: isNowCompleted 
-              ? (t.weeklyCompletedCount || 0) + 1 
+            weeklyCompletedCount: isNowCompleted
+              ? (t.weeklyCompletedCount || 0) + 1
               : Math.max(0, (t.weeklyCompletedCount || 0) - 1)
           };
         }
@@ -378,15 +378,15 @@ export default function HomeScreen() {
                       ]}>
                       {item.text}
                     </ThemedText>
-                    
+
                     <View style={styles.metaRow}>
                       {item.link && (
                         <ExternalLink href={item.link as any}>
                           <View style={styles.linkBadge}>
-                            <Ionicons 
-                              name={getLinkIcon(item.link)} 
-                              size={12} 
-                              color="#2196F3" 
+                            <Ionicons
+                              name={getLinkIcon(item.link)}
+                              size={12}
+                              color="#2196F3"
                             />
                             <ThemedText style={styles.linkText} numberOfLines={1}>Ref</ThemedText>
                           </View>
@@ -418,7 +418,7 @@ export default function HomeScreen() {
 
   const listData: ListItem[] = [];
   timeOfDayOptions.forEach(time => {
-    listData.push({ id: `header-${time}`, type: 'header', title: time });
+    listData.push({ id: \header-\\, type: 'header', title: time });
     const sectionTasks = tasks.filter(t => t.timeOfDay === time);
     sectionTasks.forEach(task => listData.push({ ...task, type: 'task' }));
   });
@@ -433,7 +433,7 @@ export default function HomeScreen() {
         />
       }>
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Daily Tracker ?</ThemedText>
+        <ThemedText type="title">Daily Tracker</ThemedText>
       </ThemedView>
 
       <ThemedView style={styles.inputSection}>
@@ -444,7 +444,7 @@ export default function HomeScreen() {
           value={taskText}
           onChangeText={setTaskText}
         />
-        <View style={styles.linkInputRow}>
+        <View style={styles.linkInputSection}>
           <TextInput
             style={[styles.input, styles.linkInput]}
             placeholder="Link (e.g. instagram.com/...)"
@@ -454,35 +454,37 @@ export default function HomeScreen() {
             autoCapitalize="none"
             keyboardType="url"
           />
-          <View style={styles.dropdownContainer}>
-            <TouchableOpacity 
-              style={styles.dropdownButton} 
-              onPress={() => setIsDropdownOpen(!isDropdownOpen)}>
-              <ThemedText style={styles.dropdownButtonText}>{selectedTimeOfDay}</ThemedText>
-              <Ionicons name={isDropdownOpen ? "chevron-up" : "chevron-down"} size={16} color="#2196F3" />
+          <View style={styles.dropdownAndAddRow}>
+            <View style={styles.dropdownContainer}>
+              <TouchableOpacity
+                style={styles.dropdownButton}
+                onPress={() => setIsDropdownOpen(!isDropdownOpen)}>
+                <ThemedText style={styles.dropdownButtonText}>{selectedTimeOfDay}</ThemedText>
+                <Ionicons name={isDropdownOpen ? "chevron-up" : "chevron-down"} size={16} color="#2196F3" />
+              </TouchableOpacity>
+              {isDropdownOpen && (
+                <View style={styles.dropdownMenu}>
+                  {timeOfDayOptions.map((option) => (
+                    <TouchableOpacity
+                      key={option}
+                      style={styles.dropdownItem}
+                      onPress={() => {
+                        setSelectedTimeOfDay(option);
+                        setIsDropdownOpen(false);
+                      }}>
+                      <ThemedText style={[
+                        styles.dropdownItemText,
+                        selectedTimeOfDay === option && styles.selectedDropdownItemText
+                      ]}>{option}</ThemedText>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              )}
+            </View>
+            <TouchableOpacity style={styles.addButton} onPress={addTask}>
+              <Ionicons name="add" size={24} color="white" />
             </TouchableOpacity>
-            {isDropdownOpen && (
-              <View style={styles.dropdownMenu}>
-                {timeOfDayOptions.map((option) => (
-                  <TouchableOpacity 
-                    key={option} 
-                    style={styles.dropdownItem} 
-                    onPress={() => {
-                      setSelectedTimeOfDay(option);
-                      setIsDropdownOpen(false);
-                    }}>
-                    <ThemedText style={[
-                      styles.dropdownItemText,
-                      selectedTimeOfDay === option && styles.selectedDropdownItemText
-                    ]}>{option}</ThemedText>
-                  </TouchableOpacity>
-                ))}
-              </View>
-            )}
           </View>
-          <TouchableOpacity style={styles.addButton} onPress={addTask}>
-            <Ionicons name="add" size={24} color="white" />
-          </TouchableOpacity>
         </View>
       </ThemedView>
 
@@ -511,9 +513,12 @@ const styles = StyleSheet.create({
   },
   inputSection: {
     marginBottom: 20,
+    gap: 12,
+  },
+  linkInputSection: {
     gap: 10,
   },
-  linkInputRow: {`n    flexWrap: 'wrap',
+  dropdownAndAddRow: {
     flexDirection: 'row',
     gap: 10,
   },
@@ -526,7 +531,7 @@ const styles = StyleSheet.create({
     color: '#333',
   },
   linkInput: {
-    flex: 1,
+    width: '100%',
   },
   addButton: {
     width: 50,
@@ -656,6 +661,7 @@ const styles = StyleSheet.create({
   dropdownContainer: {
     zIndex: 1000,
     position: 'relative',
+    flex: 1,
   },
   dropdownButton: {
     height: 50,
@@ -664,8 +670,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
     gap: 4,
-    minWidth: 80,
   },
   dropdownButtonText: {
     fontSize: 14,
@@ -718,5 +724,3 @@ const styles = StyleSheet.create({
     paddingLeft: 4,
   },
 });
-
-
